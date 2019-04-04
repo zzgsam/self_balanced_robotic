@@ -19,7 +19,7 @@ except KeyboardInterrupt:
 	print("Error")
 	pass
 p.stop()
-GPIO.output(12,0)
+#GPIO.output(12,0)
 GPIO.cleanup()
 
 
