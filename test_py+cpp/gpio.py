@@ -1,7 +1,16 @@
 from ctypes import *
 import RPi.GPIO as GPIO 
 #load the shared object file
+
+class return_value_struc(Structure):
+	_fields_=[
+	('duration',c_int),
+	('value_inter',c_int),
+	]
+
 gpio_test = CDLL('./gpio_test.so')
+gpio_test.pyReturnStructure.restype=POINTER(return_value_struc)
+
 
 #Find sum of integers
 a=gpio_test.ini()
@@ -16,13 +25,15 @@ p.start(50)
 #gpio_test.pySoftPwmWrite(3,50)
 gpio_test.pySetInterrupt(5,2)
 
+#temppp=return_value_struc()
 
 last_temp=0
 num=0
 while True:
 	#gpio_test.pyDigitalWrite(7,0)
-	print(gpio_test.pyReadDuration())
-
+	temppp=gpio_test.pyReturnStructure()
+	print(temppp.contents.duration)
+#	print(temppp.duration)
 #	temp=gpio_test.pyReadInterruptCounter()
 #	if temp==last_temp:
 #		last_temp=temp

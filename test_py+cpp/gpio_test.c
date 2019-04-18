@@ -12,7 +12,7 @@ void interrupt_counter(void);
 void pySetInterrupt(int pin,int mode);
 int pyReadInterruptCounter(void);
 int pyReadDuration(void);
-struct return_value_struc pyReturnStructure(void);
+struct return_value_struc* pyReturnStructure(void);
 
 int value_inter=0;
 unsigned int last_micro=0;
@@ -75,9 +75,10 @@ int pyReadDuration(void){
 
 }
 
-struct return_value_struc pyReturnStructure(void){
-	return_value.duration=duration;
-	return_value.value_inter;
-	return return_value;
+struct return_value_struc* pyReturnStructure(void){
+	struct return_value_struc *temp;
+	temp->duration=duration;
+	temp->value_inter;
+	return temp;
 }
 
