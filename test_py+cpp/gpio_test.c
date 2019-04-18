@@ -11,13 +11,20 @@ void pySoftPwmWrite(int pin,int value);
 void interrupt_counter(void);
 void pySetInterrupt(int pin,int mode);
 int pyReadInterruptCounter(void);
-
+int pyReadDuration(void);
+struct return_value_struc pyReturnStructure(void);
 
 int value_inter=0;
 unsigned int last_micro=0;
 unsigned int this_micro=0;
 unsigned int duration=0;
+struct return_value_struc{
+	int duration;
+	int value_inter;
 
+};
+
+struct return_value_struc return_value={0,0};
 
 int ini(void)    
 {    
@@ -63,8 +70,14 @@ int pyReadInterruptCounter(void){
 	return value_inter;
 }
 
-int pyReadDuration(){
+int pyReadDuration(void){
 	return duration;
 
-
 }
+
+struct return_value_struc pyReturnStructure(void){
+	return_value.duration=duration;
+	return_value.value_inter;
+	return return_value;
+}
+

@@ -10,18 +10,23 @@ def encoder_detect(channel):
 	global pulse_a,t1,t2
 	for i in range(10):
 		if GPIO.input(16) != 1:
-			return;
-	
+			return;	
 	pulse_a += 1
-	t_temp=	w_timer.micros()
-	print("a= %d,time=%f"%(pulse_a,(t_temp-t1)/1000))	
+#	t_temp=	w_timer.micros()
+#	print("a= %d,time=%f"%(pulse_a,(t_temp-t1)/1000))	
+#	t_temp2=w_timer.micros()
+#	print("time in printf=%f"%((t_temp2-t_temp)/1000))	
 	if pulse_a==1:
 		t1=w_timer.micros()
 		t2=0
 	if pulse_a==330+1:
-
+		p.ChangeDutyCycle(0)
+		for i in range(100000):
+			pass
+		
+		p.ChangeDutyCycle(90)
 		t1_temp=t2=w_timer.micros()
-		print(((t2-t1)/1000))
+#		print(((t2-t1)/1000))
 		pulse_a=1
 		t1=t1_temp
 #	print(pulse_a)

@@ -13,8 +13,7 @@ p=GPIO.PWM(36,50)
 p.start(0)
 try:
 	while 1:
-		p.ChangeDutyCycle(90)
-
+#		p.ChangeDutyCycle(90)
 except KeyboardInterrupt:
 	print("Error")
 	pass
