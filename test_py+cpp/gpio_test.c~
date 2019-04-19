@@ -12,7 +12,6 @@ void interrupt_counter(void);
 void pySetInterrupt(int pin,int mode);
 int pyReadInterruptCounter(void);
 int pyReadDuration(void);
-float pyReadPeriod(void);
 struct return_value_struc* pyReturnStructure(void);
 
 int value_inter=0;
@@ -22,8 +21,9 @@ unsigned int duration=0;
 unsigned int total_duration=0;
 
 struct return_value_struc{
-	int duration;
+	int total_duration;
 	int value_inter;
+
 };
 
 struct return_value_struc return_value={0,0};
@@ -80,27 +80,14 @@ int pyReadDuration(void){
 
 }
 
-float pyReadPeriod(void){
-	if(value_inter <= 1){
-		return -1;
-	}
-	else{
-		float period_temp=total_duration/(value_inter-1);
-		total_duration=0;
-		value_inter=0;
-		return period_temp;
-	}
-
-}
-
 struct return_value_struc* pyReturnStructure(void){
 
 	struct return_value_struc *temp;
 	
-	temp->duration=duration;
-	temp->value_inter=value_inter;
-	//total_duration=0;
-	//value_inter=0;
+	temp->total_duration=total_duration;
+	temp->value_inter;
+	total_duration=0;
+	value_inter=0;
 	return temp;
 }
 
