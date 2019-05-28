@@ -42,22 +42,22 @@ def change_rotational_speed(pwm_obj,rps):
 #Initialization
 a=gpio_test.ini()
 #motot 1
-gpio_test.pySet_PinMode(16,0)#Phase A IO16 IN
-gpio_test.pySet_PinMode(18,0)#Phase B IO18 IN
+gpio_test.pySet_PinMode(16,0)#Encoder Phase A IO16 IN
+gpio_test.pySet_PinMode(18,0)#Encoder Phase B IO18 IN
 gpio_test.pySet_PinMode(38,1)#AIN1 IO38 OUT
 gpio_test.pySet_PinMode(40,1)#AIN2 IO40 OUT
 
 #motot 2
-gpio_test.pySet_PinMode(29,0)#Phase A IO29 IN
-gpio_test.pySet_PinMode(31,0)#Phase B IO31 IN
-gpio_test.pySet_PinMode(35,1)#AIN1 IO35 OUT
-gpio_test.pySet_PinMode(37,1)#AIN2 IO47 OUT
+gpio_test.pySet_PinMode(29,0)#Encoder Phase A IO29 IN
+gpio_test.pySet_PinMode(31,0)#Encoder Phase B IO31 IN
+gpio_test.pySet_PinMode(35,1)#BIN1 IO35 OUT
+gpio_test.pySet_PinMode(37,1)#BIN2 IO37 OUT
 
-gpio_test.pyDigitalWrite(38,0)
-gpio_test.pyDigitalWrite(40,1)
+gpio_test.pyDigitalWrite(38,1)
+gpio_test.pyDigitalWrite(40,0)
 
 gpio_test.pyDigitalWrite(35,0)
-gpio_test.pyDigitalWrite(47,1)
+gpio_test.pyDigitalWrite(37,1)
 
 #gpio_test.pySet_PinMode(5,0)
 #gpio_test.pySet_PinMode(7,1)
@@ -71,7 +71,7 @@ p1.start(50)
 #motor 2
 GPIO.setup(33,GPIO.OUT) #PWMB IO33
 p2=GPIO.PWM(33,80)
-p2.start(0)
+p2.start(50)
 #gpio_test.pySoftPwmCreate(3,100,100)
 #gpio_test.pySoftPwmWrite(3,50)
 gpio_test.pySetInterrupt(16,2) #Phase A IO16 GPIO.Rising
@@ -79,9 +79,11 @@ gpio_test.pySetInterrupt(29,2) #Phase A IO29 GPIO.Rising
 
 #temppp=return_value_struc()
 p1.ChangeDutyCycle(50.5)
+p2.ChangeDutyCycle(50.5)
 last_temp=0
 num=0
-change_rotational_speed(p1,2)
+change_rotational_speed(p1,1)
+change_rotational_speed(p2,1)
 while True:
     temp_p=gpio_test.pyReadPeriod()
     print("round per second: %f "% rotation_round(temp_p))
